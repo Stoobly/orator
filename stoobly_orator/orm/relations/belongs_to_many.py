@@ -6,7 +6,7 @@ import inflection
 from ...exceptions.orm import ModelNotFound
 from ...query.expression import QueryExpression
 from ..collection import Collection
-import orator.orm.model
+from ..model import *
 from .relation import Relation
 from .result import Result
 
