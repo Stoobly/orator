@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
 from ... import OratorTestCase
-from orator import DatabaseManager, SoftDeletes, Model
-from orator.orm import has_many
-from orator.query import QueryBuilder
-from orator.pagination import Paginator
+from stoobly_orator import DatabaseManager, SoftDeletes, Model
+from stoobly_orator.orm import has_many
+from stoobly_orator.query import QueryBuilder
+from stoobly_orator.pagination import Paginator
 
 
 class SoftDeletesIntegrationTestCase(OratorTestCase):

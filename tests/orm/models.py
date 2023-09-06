@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from orator.orm import Model
+from stoobly_orator.orm import Model
 
 
 class User(Model):

@@ -7,17 +7,17 @@ from .. import mock
 
 from ..utils import MockConnection, MockProcessor
 
-from orator.exceptions import ArgumentError
-from orator.query.grammars import (
+from stoobly_orator.exceptions import ArgumentError
+from stoobly_orator.query.grammars import (
     QueryGrammar,
     PostgresQueryGrammar,
     SQLiteQueryGrammar,
     MySQLQueryGrammar,
 )
-from orator.query.builder import QueryBuilder
-from orator.query.expression import QueryExpression
-from orator.query.join_clause import JoinClause
-from orator.support import Collection
+from stoobly_orator.query.builder import QueryBuilder
+from stoobly_orator.query.expression import QueryExpression
+from stoobly_orator.query.join_clause import JoinClause
+from stoobly_orator.support import Collection
 
 
 class QueryBuilderTestCase(OratorTestCase):

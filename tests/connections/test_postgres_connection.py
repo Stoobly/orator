@@ -2,7 +2,7 @@
 
 from .. import OratorTestCase
 
-from orator.connections.postgres_connection import PostgresConnection
+from stoobly_orator.connections.postgres_connection import PostgresConnection
 
 
 class PostgresConnectionTestCase(OratorTestCase):

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from orator import Model
-from orator.orm import (
+from stoobly_orator import Model
+from stoobly_orator.orm import (
     has_one,
     has_many,
     belongs_to,
@@ -9,8 +9,8 @@ from orator.orm import (
     morph_to,
     morph_many,
 )
-from orator import QueryExpression
-from orator.dbal.exceptions import ColumnDoesNotExist
+from stoobly_orator import QueryExpression
+from stoobly_orator.dbal.exceptions import ColumnDoesNotExist
 
 
 class IntegrationTestCase(object):

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from orator.pagination import Paginator
+from stoobly_orator.pagination import Paginator
 from .. import OratorTestCase
 
 

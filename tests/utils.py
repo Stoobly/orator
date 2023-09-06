@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from . import mock
-from orator.connections.connection_interface import ConnectionInterface
-from orator.query.processors.processor import QueryProcessor
-from orator.database_manager import DatabaseManager
-from orator.connectors.connection_factory import ConnectionFactory
-from orator.query.builder import QueryBuilder
-from orator.orm.model import Model
+from stoobly_orator.connections.connection_interface import ConnectionInterface
+from stoobly_orator.query.processors.processor import QueryProcessor
+from stoobly_orator.database_manager import DatabaseManager
+from stoobly_orator.connectors.connection_factory import ConnectionFactory
+from stoobly_orator.query.builder import QueryBuilder
+from stoobly_orator.orm.model import Model
 
 
 class MockConnection(ConnectionInterface):

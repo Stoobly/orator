@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from flexmock import flexmock
-from orator.migrations import DatabaseMigrationRepository
-from orator.commands.migrations import InstallCommand
+from stoobly_orator.migrations import DatabaseMigrationRepository
+from stoobly_orator.commands.migrations import InstallCommand
 from .. import OratorCommandTestCase
 
 

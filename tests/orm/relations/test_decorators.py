@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from ... import OratorTestCase
-from orator import Model as BaseModel
-from orator.orm import (
+from stoobly_orator import Model as BaseModel
+from stoobly_orator.orm import (
     morph_to,
     has_one,
     has_many,
@@ -10,9 +10,9 @@ from orator.orm import (
     morph_many,
     belongs_to,
 )
-from orator.orm.model import ModelRegister
-from orator.connections import SQLiteConnection
-from orator.connectors.sqlite_connector import SQLiteConnector
+from stoobly_orator.orm.model import ModelRegister
+from stoobly_orator.connections import SQLiteConnection
+from stoobly_orator.connectors.sqlite_connector import SQLiteConnector
 
 
 class DecoratorsTestCase(OratorTestCase):

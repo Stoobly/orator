@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-BLANK_STUB = """from orator.migrations import Migration
+BLANK_STUB = """from stoobly_orator.migrations import Migration
 
 
 class DummyClass(Migration):
@@ -18,7 +18,7 @@ class DummyClass(Migration):
         pass
 """
 
-CREATE_STUB = """from orator.migrations import Migration
+CREATE_STUB = """from stoobly_orator.migrations import Migration
 
 
 class DummyClass(Migration):
@@ -38,7 +38,7 @@ class DummyClass(Migration):
         self.schema.drop('dummy_table')
 """
 
-UPDATE_STUB = """from orator.migrations import Migration
+UPDATE_STUB = """from stoobly_orator.migrations import Migration
 
 
 class DummyClass(Migration):

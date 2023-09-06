@@ -3,15 +3,15 @@
 from flexmock import flexmock, flexmock_teardown
 from .. import OratorTestCase, mock
 from ..utils import MockModel, MockQueryBuilder, MockConnection, MockProcessor
-from orator.query.grammars.grammar import QueryGrammar
-from orator.query.builder import QueryBuilder
-from orator.orm.builder import Builder
-from orator.orm.model import Model
-from orator.orm import belongs_to, has_many, scope
-from orator.exceptions.orm import ModelNotFound
-from orator.orm.collection import Collection
-from orator.connections import Connection
-from orator.query.processors import QueryProcessor
+from stoobly_orator.query.grammars.grammar import QueryGrammar
+from stoobly_orator.query.builder import QueryBuilder
+from stoobly_orator.orm.builder import Builder
+from stoobly_orator.orm.model import Model
+from stoobly_orator.orm import belongs_to, has_many, scope
+from stoobly_orator.exceptions.orm import ModelNotFound
+from stoobly_orator.orm.collection import Collection
+from stoobly_orator.connections import Connection
+from stoobly_orator.query.processors import QueryProcessor
 
 
 class BuilderTestCase(OratorTestCase):

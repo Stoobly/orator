@@ -4,7 +4,7 @@ import importlib
 import inflection
 import os
 from cleo import InputOption
-from orator import DatabaseManager
+from stoobly_orator import DatabaseManager
 from .base_command import BaseCommand
 from ...utils import load_module
 

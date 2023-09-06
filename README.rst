@@ -45,7 +45,7 @@ and passing it to a ``DatabaseManager`` instance.
 
 .. code-block:: python
 
-    from orator import DatabaseManager, Model
+    from stoobly_orator import DatabaseManager, Model
 
     config = {
         'mysql': {

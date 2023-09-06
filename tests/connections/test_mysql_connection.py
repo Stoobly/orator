@@ -2,7 +2,7 @@
 
 from .. import OratorTestCase
 
-from orator.connections.mysql_connection import MySQLConnection
+from stoobly_orator.connections.mysql_connection import MySQLConnection
 
 
 class MySQLConnectionTestCase(OratorTestCase):

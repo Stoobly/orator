@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-DEFAULT_STUB = """from orator.seeds import Seeder
+DEFAULT_STUB = """from stoobly_orator.seeds import Seeder
 
 
 class DummyClass(Seeder):

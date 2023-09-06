@@ -4,13 +4,13 @@ import pendulum
 from flexmock import flexmock, flexmock_teardown
 from ... import OratorTestCase
 
-from orator.query.builder import QueryBuilder
-from orator.query.grammars import QueryGrammar
-from orator.query.expression import QueryExpression
-from orator.orm.builder import Builder
-from orator.orm.model import Model
-from orator.orm.relations import MorphOne, MorphMany
-from orator.orm.collection import Collection
+from stoobly_orator.query.builder import QueryBuilder
+from stoobly_orator.query.grammars import QueryGrammar
+from stoobly_orator.query.expression import QueryExpression
+from stoobly_orator.orm.builder import Builder
+from stoobly_orator.orm.model import Model
+from stoobly_orator.orm.relations import MorphOne, MorphMany
+from stoobly_orator.orm.collection import Collection
 
 
 class OrmMorphTestCase(OratorTestCase):

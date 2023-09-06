@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from orator import Model
+from stoobly_orator import Model
 
 
 class Migration(object):

@@ -3,7 +3,7 @@
 import sys
 import os
 from unittest import TestCase
-from orator.database_manager import DatabaseManager
+from stoobly_orator.database_manager import DatabaseManager
 from .orm.models import Model, User
 
 PY2 = sys.version_info[0] == 2

@@ -13,8 +13,8 @@ from .. import OratorTestCase
 from .. import mock
 from ..orm.models import User
 
-from orator.query.builder import QueryBuilder
-from orator.connections.connection import Connection
+from stoobly_orator.query.builder import QueryBuilder
+from stoobly_orator.connections.connection import Connection
 
 
 class ConnectionTestCase(OratorTestCase):

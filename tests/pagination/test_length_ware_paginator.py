@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from orator.pagination import LengthAwarePaginator
+from stoobly_orator.pagination import LengthAwarePaginator
 from .. import OratorTestCase
 
 

@@ -2,9 +2,9 @@
 
 from ... import OratorTestCase
 from . import IntegrationTestCase, User, Post
-from orator import Model
-from orator.connections import SQLiteConnection
-from orator.connectors.sqlite_connector import SQLiteConnector
+from stoobly_orator import Model
+from stoobly_orator.connections import SQLiteConnection
+from stoobly_orator.connectors.sqlite_connector import SQLiteConnector
 
 
 class SchemaBuilderSQLiteIntegrationTestCase(IntegrationTestCase, OratorTestCase):

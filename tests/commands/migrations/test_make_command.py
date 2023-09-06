@@ -2,8 +2,8 @@
 
 import os
 from flexmock import flexmock
-from orator.migrations import MigrationCreator
-from orator.commands.migrations import MigrateMakeCommand
+from stoobly_orator.migrations import MigrationCreator
+from stoobly_orator.commands.migrations import MigrateMakeCommand
 from .. import OratorCommandTestCase
 
 

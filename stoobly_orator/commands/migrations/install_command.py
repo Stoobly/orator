@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from orator.migrations import DatabaseMigrationRepository
+from stoobly_orator.migrations import DatabaseMigrationRepository
 from .base_command import BaseCommand
 
 

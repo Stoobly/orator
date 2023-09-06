@@ -2,8 +2,8 @@
 
 import os
 from ... import OratorTestCase
-from orator.connections import MySQLConnection
-from orator.connectors.mysql_connector import MySQLConnector
+from stoobly_orator.connections import MySQLConnection
+from stoobly_orator.connectors.mysql_connector import MySQLConnector
 from . import IntegrationTestCase
 
 

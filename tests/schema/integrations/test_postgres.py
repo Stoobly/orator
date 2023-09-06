@@ -2,8 +2,8 @@
 
 import os
 from ... import OratorTestCase
-from orator.connections import PostgresConnection
-from orator.connectors.postgres_connector import PostgresConnector
+from stoobly_orator.connections import PostgresConnection
+from stoobly_orator.connectors.postgres_connector import PostgresConnector
 from . import IntegrationTestCase
 
 

@@ -5,14 +5,14 @@ from flexmock import flexmock, flexmock_teardown
 from ... import OratorTestCase
 from ...utils import MockConnection
 
-from orator.query.builder import QueryBuilder
-from orator.query.grammars import QueryGrammar
-from orator.query.processors import QueryProcessor
-from orator.query.expression import QueryExpression
-from orator.orm.builder import Builder
-from orator.orm.model import Model
-from orator.orm.relations import HasManyThrough
-from orator.orm.collection import Collection
+from stoobly_orator.query.builder import QueryBuilder
+from stoobly_orator.query.grammars import QueryGrammar
+from stoobly_orator.query.processors import QueryProcessor
+from stoobly_orator.query.expression import QueryExpression
+from stoobly_orator.orm.builder import Builder
+from stoobly_orator.orm.model import Model
+from stoobly_orator.orm.relations import HasManyThrough
+from stoobly_orator.orm.collection import Collection
 
 
 class OrmHasManyThroughTestCase(OratorTestCase):

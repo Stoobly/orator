@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from flexmock import flexmock, flexmock_teardown
-from orator.orm.scopes import SoftDeletingScope
-from orator.orm import Builder, Model
-from orator.query import QueryBuilder
+from stoobly_orator.orm.scopes import SoftDeletingScope
+from stoobly_orator.orm import Builder, Model
+from stoobly_orator.query import QueryBuilder
 from ... import OratorTestCase, mock
 
 

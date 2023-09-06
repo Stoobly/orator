@@ -9,18 +9,18 @@ from flexmock import flexmock, flexmock_teardown
 from .. import OratorTestCase, mock
 from ..utils import MockModel, MockQueryBuilder, MockConnection, MockProcessor
 
-from orator.query.builder import QueryBuilder
-from orator.query.grammars import QueryGrammar
-from orator.query.processors import QueryProcessor
-from orator.orm.builder import Builder
-from orator.orm.model import Model
-from orator.orm.utils import mutator, accessor
-from orator.exceptions.orm import ModelNotFound, MassAssignmentError
-from orator.orm.collection import Collection
-from orator.connections import Connection
-from orator import DatabaseManager
-from orator.utils import basestring
-from orator.events import Event
+from stoobly_orator.query.builder import QueryBuilder
+from stoobly_orator.query.grammars import QueryGrammar
+from stoobly_orator.query.processors import QueryProcessor
+from stoobly_orator.orm.builder import Builder
+from stoobly_orator.orm.model import Model
+from stoobly_orator.orm.utils import mutator, accessor
+from stoobly_orator.exceptions.orm import ModelNotFound, MassAssignmentError
+from stoobly_orator.orm.collection import Collection
+from stoobly_orator.connections import Connection
+from stoobly_orator import DatabaseManager
+from stoobly_orator.utils import basestring
+from stoobly_orator.events import Event
 
 
 class OrmModelTestCase(OratorTestCase):

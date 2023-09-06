@@ -3,8 +3,8 @@
 import tempfile
 import os
 from flexmock import flexmock, flexmock_teardown
-from orator.migrations import MigrationCreator
-from orator.migrations.stubs import CREATE_STUB, UPDATE_STUB, BLANK_STUB
+from stoobly_orator.migrations import MigrationCreator
+from stoobly_orator.migrations.stubs import CREATE_STUB, UPDATE_STUB, BLANK_STUB
 from .. import OratorTestCase
 
 

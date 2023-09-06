@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from flexmock import flexmock, flexmock_teardown
-from orator.connections import Connection
-from orator.schema import SchemaBuilder
+from stoobly_orator.connections import Connection
+from stoobly_orator.schema import SchemaBuilder
 from .. import OratorTestCase
 
 

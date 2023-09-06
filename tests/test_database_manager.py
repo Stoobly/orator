@@ -4,7 +4,7 @@ from . import OratorTestCase
 from . import mock
 from .utils import MockConnection, MockManager
 
-from orator.database_manager import DatabaseManager
+from stoobly_orator.database_manager import DatabaseManager
 
 
 class ConnectionTestCase(OratorTestCase):

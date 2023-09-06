@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
-from orator.migrations import MigrationCreator
+from stoobly_orator.migrations import MigrationCreator
 from .base_command import BaseCommand
 
 

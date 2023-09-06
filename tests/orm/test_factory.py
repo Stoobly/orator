@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from orator.orm import Factory, Model, belongs_to, has_many
-from orator.connections import SQLiteConnection
-from orator.connectors import SQLiteConnector
+from stoobly_orator.orm import Factory, Model, belongs_to, has_many
+from stoobly_orator.connections import SQLiteConnection
+from stoobly_orator.connectors import SQLiteConnector
 
 from .. import OratorTestCase, mock
 

@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from flexmock import flexmock, flexmock_teardown
-from orator.connections import Connection
-from orator.schema.grammars import PostgresSchemaGrammar
-from orator.schema.blueprint import Blueprint
+from stoobly_orator.connections import Connection
+from stoobly_orator.schema.grammars import PostgresSchemaGrammar
+from stoobly_orator.schema.blueprint import Blueprint
 from ... import OratorTestCase
 
 

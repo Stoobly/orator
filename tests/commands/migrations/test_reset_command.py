@@ -2,9 +2,9 @@
 
 import os
 from flexmock import flexmock
-from orator.migrations import Migrator
-from orator.commands.migrations import ResetCommand
-from orator import DatabaseManager
+from stoobly_orator.migrations import Migrator
+from stoobly_orator.commands.migrations import ResetCommand
+from stoobly_orator import DatabaseManager
 from .. import OratorCommandTestCase
 
 

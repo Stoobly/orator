@@ -8,8 +8,8 @@ import simplejson as json
 
 from datetime import datetime, timedelta, date
 from backpack import collect
-from orator import Model, Collection, DatabaseManager
-from orator.orm import (
+from stoobly_orator import Model, Collection, DatabaseManager
+from stoobly_orator.orm import (
     morph_to,
     has_one,
     has_many,
@@ -19,8 +19,8 @@ from orator.orm import (
     scope,
     accessor,
 )
-from orator.orm.relations import BelongsToMany
-from orator.exceptions.orm import ModelNotFound
+from stoobly_orator.orm.relations import BelongsToMany
+from stoobly_orator.exceptions.orm import ModelNotFound
 
 
 logger = logging.getLogger("orator.connection.queries")

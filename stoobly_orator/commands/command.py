@@ -2,7 +2,7 @@
 
 import os
 from cleo import Command as BaseCommand, InputOption, ListInput
-from orator import DatabaseManager
+from stoobly_orator import DatabaseManager
 import yaml
 
 

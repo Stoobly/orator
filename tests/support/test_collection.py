@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from .. import OratorTestCase
-from orator.support.collection import Collection
+from stoobly_orator.support.collection import Collection
 
 
 class CollectionTestCase(OratorTestCase):
