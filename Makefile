@@ -68,7 +68,7 @@ docker-down:
 
 # test your application (tests in the tests/ directory)
 test: docker-wait
-	@poetry run pytest tests -sq; $(MAKE) docker-down
+	@poetry run pytest tests -sq; ret=$$?; $(MAKE) docker-down; exit $$ret
 
 # run unit tests and SQLite integration tests (no Docker needed for MySQL and Postgres)
 test-unit:
@@ -76,5 +76,5 @@ test-unit:
 
 # run MySQL and Postgres integration tests (starts and stops docker automatically)
 test-int: docker-wait
-	@poetry run pytest tests/integrations/test_postgres.py tests/integrations/test_postgres_qmark.py tests/integrations/test_mysql.py tests/integrations/test_mysql_qmark.py tests/schema/integrations/test_postgres.py tests/schema/integrations/test_mysql.py -sq; $(MAKE) docker-down
+	@poetry run pytest tests/integrations/test_postgres.py tests/integrations/test_postgres_qmark.py tests/integrations/test_mysql.py tests/integrations/test_mysql_qmark.py tests/schema/integrations/test_postgres.py tests/schema/integrations/test_mysql.py -sq; ret=$$?; $(MAKE) docker-down; exit $$ret
 
