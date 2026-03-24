@@ -17,7 +17,7 @@ class MigrateMakeCommandTestCase(OratorCommandTestCase):
         command = flexmock(MigrateMakeCommand())
         command.should_receive("_get_config").and_return({})
 
-        self.run_command(command, [("name", "create_foo")])
+        self.run_command(command, "create_foo")
 
     def test_basic_create_gives_creator_proper_arguments_when_table_is_set(self):
         creator_mock = flexmock(MigrationCreator)
@@ -28,7 +28,7 @@ class MigrateMakeCommandTestCase(OratorCommandTestCase):
         command = flexmock(MigrateMakeCommand())
         command.should_receive("_get_config").and_return({})
 
-        self.run_command(command, [("name", "create_foo"), ("--table", "users")])
+        self.run_command(command, "create_foo --table users")
 
     def test_basic_create_gives_creator_proper_arguments_when_table_is_set_with_create(
         self
@@ -41,6 +41,4 @@ class MigrateMakeCommandTestCase(OratorCommandTestCase):
         command = flexmock(MigrateMakeCommand())
         command.should_receive("_get_config").and_return({})
 
-        self.run_command(
-            command, [("name", "create_foo"), ("--table", "users"), "--create"]
-        )
+        self.run_command(command, "create_foo --table users --create")

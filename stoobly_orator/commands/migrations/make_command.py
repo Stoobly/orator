@@ -1,27 +1,27 @@
 # -*- coding: utf-8 -*-
 
 import os
+from cleo.io.inputs.argument import Argument
+from cleo.io.inputs.option import Option
 from stoobly_orator.migrations import MigrationCreator
 from .base_command import BaseCommand
 
 
 class MigrateMakeCommand(BaseCommand):
-    """
-    Create a new migration file.
-
-    make:migration
-        {name : The name of the migration.}
-        {--t|table= : The table to create the migration for.}
-        {--C|create : Whether the migration will create the table or not.}
-        {--p|path= : The path to migrations files.}
-    """
+    name = "make:migration"
+    description = "Create a new migration file."
+    arguments = [
+        Argument("name", required=True, description="The name of the migration."),
+    ]
+    options = [
+        Option("--table", "-t", flag=False, requires_value=True, description="The table to create the migration for."),
+        Option("--create", "-C", description="Whether the migration will create the table or not."),
+        Option("--path", "-p", flag=False, requires_value=True, description="The path to migrations files."),
+    ]
 
     needs_config = False
 
-    def handle(self):
-        """
-        Executes the command.
-        """
+    def _handle(self):
         creator = MigrationCreator()
 
         name = self.argument("name")

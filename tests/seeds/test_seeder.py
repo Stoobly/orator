@@ -4,7 +4,8 @@ from flexmock import flexmock
 from stoobly_orator import DatabaseManager
 from stoobly_orator.connections import Connection
 from stoobly_orator.seeds import Seeder
-from cleo import Output, Command as BaseCommand
+from cleo.io.outputs.output import Output
+from cleo.commands.command import Command as BaseCommand
 
 from .. import OratorTestCase
 
@@ -20,7 +21,7 @@ class SeederTestCase(OratorTestCase):
         connection = flexmock(Connection(None))
         resolver.should_receive("connection").with_args(None).and_return(connection)
         seeder = Seeder(resolver)
-        command = flexmock(Command("foo"))
+        command = flexmock(Command())
         command.should_receive("line").once()
         seeder.set_command(command)
         child = flexmock()
@@ -33,7 +34,7 @@ class SeederTestCase(OratorTestCase):
 
 
 class Command(BaseCommand):
-
+    name = "foo"
     resolver = "bar"
 
     def get_output(self):

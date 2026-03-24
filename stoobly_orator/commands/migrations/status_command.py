@@ -1,22 +1,19 @@
 # -*- coding: utf-8 -*-
 
+from cleo.io.inputs.option import Option
 from stoobly_orator.migrations import Migrator, DatabaseMigrationRepository
 from .base_command import BaseCommand
 
 
 class StatusCommand(BaseCommand):
-    """
-    Show a list of migrations up/down.
+    name = "migrate:status"
+    description = "Show a list of migrations up/down."
+    options = [
+        Option("--database", "-d", flag=False, requires_value=True, description="The database connection to use."),
+        Option("--path", "-p", flag=False, requires_value=True, description="The path of migrations files to be executed."),
+    ]
 
-    migrate:status
-        {--d|database= : The database connection to use.}
-        {--p|path= : The path of migrations files to be executed.}
-    """
-
-    def handle(self):
-        """
-        Executes the command.
-        """
+    def _handle(self):
         database = self.option("database")
 
         self.resolver.set_default_connection(database)

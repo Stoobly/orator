@@ -1,24 +1,23 @@
 # -*- coding: utf-8 -*-
 
+from cleo.io.inputs.option import Option
 from stoobly_orator.migrations import Migrator, DatabaseMigrationRepository
 from .base_command import BaseCommand
 
 
 class MigrateCommand(BaseCommand):
-    """
-    Run the database migrations.
+    name = "migrate"
+    description = "Run the database migrations."
+    options = [
+        Option("--database", "-d", flag=False, requires_value=True, description="The database connection to use."),
+        Option("--path", "-p", flag=False, requires_value=True, description="The path of migrations files to be executed."),
+        Option("--seed", "-s", description="Indicates if the seed task should be re-run."),
+        Option("--seed-path", flag=False, requires_value=True, description="The path of seeds files to be executed. Defaults to ./seeders."),
+        Option("--pretend", "-P", description="Dump the SQL queries that would be run."),
+        Option("--force", "-f", description="Force the operation to run."),
+    ]
 
-    migrate
-        {--d|database= : The database connection to use.}
-        {--p|path= : The path of migrations files to be executed.}
-        {--s|seed : Indicates if the seed task should be re-run.}
-        {--seed-path= : The path of seeds files to be executed.
-                        Defaults to <comment>./seeders</comment>.}
-        {--P|pretend : Dump the SQL queries that would be run.}
-        {--f|force : Force the operation to run.}
-    """
-
-    def handle(self):
+    def _handle(self):
         if not self.confirm_to_proceed(
             "<question>Are you sure you want to proceed with the migration?</question> "
         ):
@@ -46,29 +45,29 @@ class MigrateCommand(BaseCommand):
         # If the "seed" option has been given, we will rerun the database seed task
         # to repopulate the database.
         if self.option("seed"):
-            options = [("--force", self.option("force"))]
+            args = "--force" if self.option("force") else ""
 
             if database:
-                options.append(("--database", database))
+                args += f" --database {database}"
 
-            if self.get_definition().has_option("config"):
-                options.append(("--config", self.option("config")))
+            if self.definition.has_option("config"):
+                args += f" --config {self.option('config')}"
 
             if self.option("seed-path"):
-                options.append(("--path", self.option("seed-path")))
+                args += f" --path {self.option('seed-path')}"
 
-            self.call("db:seed", options)
+            self.call("db:seed", args.strip())
 
     def _prepare_database(self, migrator, database):
         migrator.set_connection(database)
 
         if not migrator.repository_exists():
-            options = []
+            args = ""
 
             if database:
-                options.append(("--database", database))
+                args += f"--database {database}"
 
-            if self.get_definition().has_option("config"):
-                options.append(("--config", self.option("config")))
+            if self.definition.has_option("config"):
+                args += f" --config {self.option('config')}"
 
-            self.call("migrate:install", options)
+            self.call("migrate:install", args.strip())

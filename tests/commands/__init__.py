@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from cleo import Application, CommandTester
+from cleo.application import Application
+from cleo.testers.command_tester import CommandTester
 from .. import OratorTestCase
 
 
@@ -13,12 +14,10 @@ class OratorCommandTestCase(OratorTestCase):
         Run the command.
 
         :type command: cleo.commands.command.Command
-        :type options: list or None
+        :type options: str or None
         """
         if options is None:
-            options = []
-
-        options = [("command", command.get_name())] + options
+            options = ""
 
         application = Application()
         application.add(command)

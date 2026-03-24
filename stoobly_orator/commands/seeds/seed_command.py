@@ -3,28 +3,23 @@
 import importlib
 import inflection
 import os
-from cleo import InputOption
+from cleo.io.inputs.option import Option
 from stoobly_orator import DatabaseManager
 from .base_command import BaseCommand
 from ...utils import load_module
 
 
 class SeedCommand(BaseCommand):
-    """
-    Seed the database with records.
+    name = "db:seed"
+    description = "Seed the database with records."
+    options = [
+        Option("--database", "-d", flag=False, requires_value=True, description="The database connection to use."),
+        Option("--path", "-p", flag=False, requires_value=True, description="The path to seeders files. Defaults to ./seeds."),
+        Option("--seeder", flag=False, requires_value=True, default="database_seeder", description="The name of the root seeder."),
+        Option("--force", "-f", description="Force the operation to run."),
+    ]
 
-    db:seed
-        {--d|database= : The database connection to use.}
-        {--p|path= : The path to seeders files.
-                     Defaults to <comment>./seeds</comment>.}
-        {--seeder=database_seeder : The name of the root seeder.}
-        {--f|force : Force the operation to run.}
-    """
-
-    def handle(self):
-        """
-        Executes the command.
-        """
+    def _handle(self):
         if not self.confirm_to_proceed(
             "<question>Are you sure you want to seed the database?:</question> "
         ):

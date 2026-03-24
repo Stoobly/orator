@@ -15,4 +15,4 @@ class MigrateInstallCommandTestCase(OratorCommandTestCase):
         command = flexmock(InstallCommand())
         command.should_receive("_get_config").and_return({})
 
-        self.run_command(command, [("--database", "foo")])
+        self.run_command(command, "--database foo")

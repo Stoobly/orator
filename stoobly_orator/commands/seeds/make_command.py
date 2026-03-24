@@ -3,26 +3,25 @@
 import os
 import errno
 import inflection
+from cleo.io.inputs.argument import Argument
+from cleo.io.inputs.option import Option
 from ...seeds.stubs import DEFAULT_STUB
 from .base_command import BaseCommand
 
 
 class SeedersMakeCommand(BaseCommand):
-    """
-    Create a new seeder file.
-
-    make:seed
-        {name : The name of the seed.}
-        {--p|path= : The path to seeders files.
-                     Defaults to <comment>./seeds</comment>.}
-    """
+    name = "make:seed"
+    description = "Create a new seeder file."
+    arguments = [
+        Argument("name", required=True, description="The name of the seed."),
+    ]
+    options = [
+        Option("--path", "-p", flag=False, requires_value=True, description="The path to seeders files. Defaults to ./seeds."),
+    ]
 
     needs_config = False
 
-    def handle(self):
-        """
-        Executes the command.
-        """
+    def _handle(self):
         # Making root seeder
         self._make("database_seeder", True)
 
