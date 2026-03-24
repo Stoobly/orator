@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import os
 from ... import OratorTestCase
 from stoobly_orator.connections import PostgresConnection
 from stoobly_orator.connectors.postgres_connector import PostgresConnector
@@ -21,19 +20,9 @@ class DatabaseIntegrationConnectionResolver(object):
         if self._connection:
             return self._connection
 
-        ci = os.environ.get("CI", False)
-        if ci:
-            database = "orator_test"
-            user = "postgres"
-            password = None
-        else:
-            database = "orator_test"
-            user = "orator"
-            password = "orator"
-
         self._connection = PostgresConnection(
             PostgresConnector().connect(
-                {"database": database, "user": user, "password": password}
+                {"host": "localhost", "database": "orator_test", "user": "orator", "password": "orator"}
             )
         )
 

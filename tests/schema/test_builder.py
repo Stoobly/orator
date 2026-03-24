@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from flexmock import flexmock, flexmock_teardown
+from flexmock import flexmock
 from stoobly_orator.connections import Connection
 from stoobly_orator.schema import SchemaBuilder
 from .. import OratorTestCase
@@ -8,7 +8,7 @@ from .. import OratorTestCase
 
 class SchemaBuilderTestCase(OratorTestCase):
     def tearDown(self):
-        flexmock_teardown()
+        super().tearDown()
 
     def test_has_table_correctly_calls_grammar(self):
         connection = flexmock(Connection(None))

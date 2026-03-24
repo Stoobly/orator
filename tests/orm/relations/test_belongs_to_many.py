@@ -2,7 +2,7 @@
 
 
 import pendulum
-from flexmock import flexmock, flexmock_teardown
+from flexmock import flexmock
 from ... import OratorTestCase
 from ...utils import MockConnection
 
@@ -19,7 +19,7 @@ from stoobly_orator.orm.collection import Collection
 
 class OrmBelongsToTestCase(OratorTestCase):
     def tearDown(self):
-        flexmock_teardown()
+        super().tearDown()
 
     def test_models_are_properly_hydrated(self):
         model1 = OrmBelongsToManyModelStub()

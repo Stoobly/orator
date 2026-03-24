@@ -20,6 +20,7 @@ from stoobly_orator.orm import (
     accessor,
 )
 from stoobly_orator.orm.relations import BelongsToMany
+from stoobly_orator.exceptions.connectors import MissingPackage
 from stoobly_orator.exceptions.orm import ModelNotFound
 
 

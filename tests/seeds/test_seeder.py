@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from flexmock import flexmock, flexmock_teardown
+from flexmock import flexmock
 from stoobly_orator import DatabaseManager
 from stoobly_orator.connections import Connection
 from stoobly_orator.seeds import Seeder
@@ -11,8 +11,7 @@ from .. import OratorTestCase
 
 class SeederTestCase(OratorTestCase):
     def tearDown(self):
-        super(SeederTestCase, self).tearDown()
-        flexmock_teardown()
+        super().tearDown()
 
     def test_call_resolve_class_and_calls_run(self):
         resolver_mock = flexmock(DatabaseManager)

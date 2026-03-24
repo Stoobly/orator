@@ -6,6 +6,11 @@ from unittest import TestCase
 from stoobly_orator.database_manager import DatabaseManager
 from .orm.models import Model, User
 
+try:
+    from flexmock import flexmock_teardown
+except ImportError:
+    from flexmock._api import flexmock_teardown
+
 PY2 = sys.version_info[0] == 2
 
 if PY2:
@@ -16,6 +21,8 @@ else:
 
 class OratorTestCase(TestCase):
     def tearDown(self):
+        flexmock_teardown()
+
         if hasattr(self, "local_database"):
             os.remove(self.local_database)
 

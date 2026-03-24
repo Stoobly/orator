@@ -126,7 +126,13 @@ class scope(classmethod):
         self._method = method
         self._owner = None
 
-        update_wrapper(self, method)
+        # In Python 3.12+, classmethod.__wrapped__ became readonly.
+        # scope extends classmethod, and update_wrapper tries to set self.__wrapped__ = method as its last step
+        # (after all other attributes are already copied). A try/except is the minimal fix.
+        try:
+            update_wrapper(self, method)
+        except AttributeError:
+            pass
 
     def __get__(self, instance, owner, *args, **kwargs):
         if instance:

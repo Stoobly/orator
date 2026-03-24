@@ -5,7 +5,7 @@ import hashlib
 import time
 import datetime
 from pendulum import Pendulum
-from flexmock import flexmock, flexmock_teardown
+from flexmock import flexmock
 from .. import OratorTestCase, mock
 from ..utils import MockModel, MockQueryBuilder, MockConnection, MockProcessor
 
@@ -25,7 +25,7 @@ from stoobly_orator.events import Event
 
 class OrmModelTestCase(OratorTestCase):
     def tearDown(self):
-        flexmock_teardown()
+        super().tearDown()
 
     def test_attributes_manipulation(self):
         model = OrmModelStub()

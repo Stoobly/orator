@@ -2,7 +2,7 @@
 
 
 import pendulum
-from flexmock import flexmock, flexmock_teardown
+from flexmock import flexmock
 from ... import OratorTestCase
 
 from stoobly_orator.query.builder import QueryBuilder
@@ -13,7 +13,7 @@ from stoobly_orator.orm.relations import HasOne
 
 class OrmRelationTestCase(OratorTestCase):
     def tearDown(self):
-        flexmock_teardown()
+        super().tearDown()
 
     def test_set_relation_fail(self):
         parent = OrmRelationResetModelStub()

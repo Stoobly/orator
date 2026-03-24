@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from flexmock import flexmock, flexmock_teardown
+from flexmock import flexmock
 from stoobly_orator.orm.scopes import SoftDeletingScope
 from stoobly_orator.orm import Builder, Model
 from stoobly_orator.query import QueryBuilder
@@ -9,7 +9,7 @@ from ... import OratorTestCase, mock
 
 class SoftDeletingScopeTestCase(OratorTestCase):
     def tearDown(self):
-        flexmock_teardown()
+        super().tearDown()
 
     def test_apply_scope_to_a_builder(self):
         scope = SoftDeletingScope()

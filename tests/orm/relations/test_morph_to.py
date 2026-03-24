@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import pendulum
-from flexmock import flexmock, flexmock_teardown
+from flexmock import flexmock
 from ... import OratorTestCase
 
 from stoobly_orator.query.builder import QueryBuilder
@@ -15,7 +15,7 @@ from stoobly_orator.orm.collection import Collection
 
 class OrmMorphToTestCase(OratorTestCase):
     def tearDown(self):
-        flexmock_teardown()
+        super().tearDown()
 
     def test_lookup_dictionary_is_properly_constructed(self):
         relation = self._get_relation()
