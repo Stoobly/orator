@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import sys
 import os
 from unittest import TestCase
 from stoobly_orator.database_manager import DatabaseManager
@@ -11,12 +10,7 @@ try:
 except ImportError:
     from flexmock._api import flexmock_teardown
 
-PY2 = sys.version_info[0] == 2
-
-if PY2:
-    import mock
-else:
-    import unittest.mock as mock
+import unittest.mock as mock
 
 
 class OratorTestCase(TestCase):
@@ -56,14 +50,3 @@ class OratorTestCase(TestCase):
 
         self.manager.disconnect()
 
-    def assertRegex(self, *args, **kwargs):
-        if PY2:
-            return self.assertRegexpMatches(*args, **kwargs)
-        else:
-            return super(OratorTestCase, self).assertRegex(*args, **kwargs)
-
-    def assertNotRegex(self, *args, **kwargs):
-        if PY2:
-            return self.assertNotRegexpMatches(*args, **kwargs)
-        else:
-            return super(OratorTestCase, self).assertNotRegex(*args, **kwargs)
