@@ -2,20 +2,23 @@
 
 import os
 import inflection
-from cleo import Command
+from cleo.commands.command import Command
+from cleo.io.inputs.argument import Argument
+from cleo.io.inputs.option import Option
 from .stubs import MODEL_DEFAULT_STUB
 from ...utils import mkdir_p
 
 
 class ModelMakeCommand(Command):
-    """
-    Creates a new Model class.
-
-    make:model
-        {name : The name of the model to create.}
-        {--m|migration : Create a new migration file for the model.}
-        {--p|path= : Path to models directory}
-    """
+    name = "make:model"
+    description = "Creates a new Model class."
+    arguments = [
+        Argument("name", required=True, description="The name of the model to create."),
+    ]
+    options = [
+        Option("--migration", "-m", description="Create a new migration file for the model."),
+        Option("--path", "-p", flag=False, requires_value=True, description="Path to models directory"),
+    ]
 
     def handle(self):
         name = self.argument("name")
@@ -46,33 +49,13 @@ class ModelMakeCommand(Command):
 
             self.call(
                 "make:migration",
-                [
-                    ("name", "create_%s_table" % table),
-                    ("--table", table),
-                    ("--create", True),
-                ],
+                f"create_{table}_table --table {table} --create",
             )
 
     def _get_stub(self):
-        """
-        Get the model stub template
-
-        :rtype: str
-        """
         return MODEL_DEFAULT_STUB
 
     def _populate_stub(self, name, stub):
-        """
-        Populate the placeholders in the migration stub.
-
-        :param name: The name of the model
-        :type name: str
-
-        :param stub: The stub
-        :type stub: str
-
-        :rtype: str
-        """
         stub = stub.replace("DummyClass", name)
 
         return stub

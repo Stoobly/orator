@@ -22,7 +22,7 @@ class RefreshCommandTestCase(OratorCommandTestCase):
         command.should_receive("call").with_args("migrate", object).and_return(True)
         command.should_receive("_run_seeder")
 
-        self.run_command(command, [("--seed")])
+        self.run_command(command, "--seed")
 
     def test_refresh_does_not_run_the_seeder_when_seed_option_absent(self):
         resolver = flexmock(DatabaseManager)
@@ -36,4 +36,4 @@ class RefreshCommandTestCase(OratorCommandTestCase):
         )
         command.should_receive("call").with_args("migrate", object).and_return(True)
 
-        self.run_command(command, [])
+        self.run_command(command, "")

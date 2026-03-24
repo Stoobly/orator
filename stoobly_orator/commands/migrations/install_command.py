@@ -1,21 +1,18 @@
 # -*- coding: utf-8 -*-
 
+from cleo.io.inputs.option import Option
 from stoobly_orator.migrations import DatabaseMigrationRepository
 from .base_command import BaseCommand
 
 
 class InstallCommand(BaseCommand):
-    """
-    Create the migration repository.
+    name = "migrate:install"
+    description = "Create the migration repository."
+    options = [
+        Option("--database", "-d", flag=False, requires_value=True, description="The database connection to use."),
+    ]
 
-    migrate:install
-        {--d|database= : The database connection to use.}
-    """
-
-    def handle(self):
-        """
-        Executes the command
-        """
+    def _handle(self):
         database = self.option("database")
         repository = DatabaseMigrationRepository(self.resolver, "migrations")
 

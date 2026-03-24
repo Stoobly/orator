@@ -5,7 +5,6 @@ from stoobly_orator.connections import Connection
 from stoobly_orator.schema.grammars import MySQLSchemaGrammar
 from stoobly_orator.schema.blueprint import Blueprint
 from stoobly_orator.dbal.platforms import MySQLPlatform, MySQL57Platform
-# from stoobly_orator.connectors import MySQLConnector
 from ... import OratorTestCase
 
 
@@ -623,11 +622,6 @@ class MySQLSchemaGrammarTestCase(OratorTestCase):
         else:
             platform = MySQL57Platform()
 
-        # connector = flexmock(MySQLConnector())
-        # Newer flexmock versions do not support wrapping real instances whose
-        # constructors require connection parameters. A bare flexmock() is used
-        # instead since only get_server_version and get_database_platform are
-        # stubbed via should_receive anyway.
         connector = flexmock()
         connector.should_receive("get_server_version").and_return(version)
         connector.should_receive("get_database_platform").and_return(platform)

@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import os
-from cleo import Command as BaseCommand, InputOption, ListInput
+from cleo.commands.command import Command as BaseCommand
+from cleo.io.inputs.option import Option
 from stoobly_orator import DatabaseManager
 import yaml
 
@@ -12,8 +13,6 @@ class Command(BaseCommand):
 
     def __init__(self, resolver=None):
         self.resolver = resolver
-        self.input = None
-        self.output = None
 
         super(Command, self).__init__()
 
@@ -23,29 +22,24 @@ class Command(BaseCommand):
         if self.needs_config and not self.resolver:
             # Checking if a default config file is present
             if not self._check_config():
-                self.add_option(
-                    "config", "c", InputOption.VALUE_REQUIRED, "The config file path"
+                self._definition.add_option(
+                    Option("--config", "-c", flag=False, requires_value=True, description="The config file path")
                 )
 
-    def execute(self, i, o):
-        """
-        Executes the command.
-        """
-        self.set_style("question", fg="blue")
-
+    def handle(self):
         if self.needs_config and not self.resolver:
             self._handle_config(self.option("config"))
 
-        return self.handle()
+        return self._handle()
 
     def call(self, name, options=None):
-        command = self.get_application().find(name)
+        command = self.application.find(name)
         command.resolver = self.resolver
 
         return super(Command, self).call(name, options)
 
     def call_silent(self, name, options=None):
-        command = self.get_application().find(name)
+        command = self.application.find(name)
         command.resolver = self.resolver
 
         return super(Command, self).call_silent(name, options)
