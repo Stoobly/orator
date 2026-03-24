@@ -10,7 +10,7 @@ The Orator ORM provides a simple yet beautiful ActiveRecord implementation.
 It is inspired by the database part of the `Laravel framework <http://laravel.com>`_,
 but largely modified to be more pythonic.
 
-The full documentation is available here: http://orator-orm.com/docs
+The full documentation is available here: https://github.com/Stoobly/orator
 
 
 Installation
@@ -22,9 +22,9 @@ You can install Orator in 2 different ways:
 
 .. code-block:: bash
 
-    pip install orator
+    pip install stoobly-orator
 
-* Install from source using the official repository (https://github.com/sdispater/orator)
+* Install from source using the official repository (https://github.com/Stoobly/orator)
 
 The different dbapi packages are not part of the package dependencies,
 so you must install them in order to connect to corresponding databases:

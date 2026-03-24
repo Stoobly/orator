@@ -63,6 +63,14 @@ class MetaModel(type):
         try:
             return type.__getattribute__(cls, item)
         except AttributeError:
+            # Skip private/dunder attributes — they are never query builder
+            # methods and calling cls.query() for framework-internal lookups
+            # (e.g. pytest introspecting "_pytestfixturefunction") causes
+            # unexpected side effects such as registering flexmock expectations
+            # during collection.
+            if item.startswith("_"):
+                raise AttributeError(item)
+
             query = cls.query()
 
             return getattr(query, item)
@@ -2962,7 +2970,7 @@ class Model(object):
             "_exists",
             "_relations",
             "_original",
-        ] or key.startswith("__"):
+        ] or key.startswith("__") or "__flexmock__" in key:
             return object.__setattr__(self, key, value)
 
         if self._has_set_mutator(key):
@@ -2980,10 +2988,18 @@ class Model(object):
             self.set_attribute(key, value)
 
     def __delattr__(self, item):
+        # If the attribute isn't in __dict__, fall back to _attributes.
+        # Re-raise KeyError as AttributeError to match Python's expected contract
+        # for delattr and to avoid pytest INTERNALERROR during flexmock teardown,
+        # which calls delattr on cleanup attributes that may never have been set
+        # (e.g. when expectation._name is None).
         try:
             super(Model, self).__delattr__(item)
         except AttributeError:
-            del self._attributes[item]
+            try:
+                del self._attributes[item]
+            except KeyError:
+                raise AttributeError(item)
 
     def __getstate__(self):
         return {

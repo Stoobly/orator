@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from flexmock import flexmock, flexmock_teardown
+from flexmock import flexmock
 from stoobly_orator.connections import Connection
 from stoobly_orator.schema.grammars import PostgresSchemaGrammar
 from stoobly_orator.schema.blueprint import Blueprint
@@ -9,7 +9,7 @@ from ... import OratorTestCase
 
 class PostgresSchemaGrammarTestCase(OratorTestCase):
     def tearDown(self):
-        flexmock_teardown()
+        super().tearDown()
 
     def test_basic_create(self):
         blueprint = Blueprint("users")

@@ -2,26 +2,16 @@
 
 import os
 import glob
-import inspect
-from flexmock import flexmock, flexmock_teardown
+from flexmock import flexmock
 from .. import OratorTestCase
 from stoobly_orator.migrations import Migrator, DatabaseMigrationRepository, Migration
 from stoobly_orator import DatabaseManager
 from stoobly_orator.connections import Connection
-from stoobly_orator.utils import PY3K
 
 
 class MigratorTestCase(OratorTestCase):
-    def setUp(self):
-        if PY3K:
-            self.orig = inspect.getargspec
-            inspect.getargspec = lambda fn: inspect.getfullargspec(fn)[:4]
-
     def tearDown(self):
-        flexmock_teardown()
-
-        if PY3K:
-            inspect.getargspec = self.orig
+        super().tearDown()
 
     def test_migrations_are_run_up_when_outstanding_migrations_exist(self):
         resolver_mock = flexmock(DatabaseManager)
@@ -302,8 +292,8 @@ class MigratorTestCase(OratorTestCase):
 
         self.assertTrue(foo_migration.downed)
         self.assertFalse(foo_migration.upped)
-        self.assertTrue(foo_migration.downed)
-        self.assertFalse(foo_migration.upped)
+        self.assertTrue(bar_migration.downed)
+        self.assertFalse(bar_migration.upped)
 
     def test_nothing_is_rolled_back_when_nothing_in_repository(self):
         resolver = flexmock(DatabaseManager)

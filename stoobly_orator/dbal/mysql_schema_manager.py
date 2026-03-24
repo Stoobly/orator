@@ -14,6 +14,9 @@ class MySQLSchemaManager(SchemaManager):
         type_match = re.match("(.+)\((.*)\).*", db_type)
         if type_match:
             db_type = type_match.group(1)
+        # MySQL 8 omits the display width and returns e.g. "int unsigned" instead of "int(11)".
+        # Strip the unsigned modifier so the type maps correctly in INTERNAL_TYPE_MAPPING.
+        db_type = db_type.replace(" unsigned", "").strip()
 
         if "length" in table_column:
             length = table_column["length"]

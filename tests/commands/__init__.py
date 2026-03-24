@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from flexmock import flexmock_teardown
 from cleo import Application, CommandTester
 from .. import OratorTestCase
 
 
 class OratorCommandTestCase(OratorTestCase):
     def tearDown(self):
-        flexmock_teardown()
+        super().tearDown()
 
     def run_command(self, command, options=None):
         """

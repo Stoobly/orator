@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from flexmock import flexmock, flexmock_teardown
+from flexmock import flexmock
 from .. import OratorTestCase
 from stoobly_orator.migrations import DatabaseMigrationRepository
 from stoobly_orator import DatabaseManager
@@ -11,7 +11,7 @@ from stoobly_orator.schema import SchemaBuilder
 
 class DatabaseMigrationRepositoryTestCase(OratorTestCase):
     def tearDown(self):
-        flexmock_teardown()
+        super().tearDown()
 
     def test_get_ran_migrations_list_migrations_by_package(self):
         repo = self.get_repository()

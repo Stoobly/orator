@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from flexmock import flexmock, flexmock_teardown
+from flexmock import flexmock
 from stoobly_orator.schema import Blueprint
 from stoobly_orator.schema.grammars import SchemaGrammar
 from stoobly_orator.connections import Connection
@@ -9,7 +9,7 @@ from .. import OratorTestCase
 
 class SchemaBuilderTestCase(OratorTestCase):
     def tearDown(self):
-        flexmock_teardown()
+        super().tearDown()
 
     def test_to_sql_runs_commands_from_blueprint(self):
         conn = flexmock(Connection(None))

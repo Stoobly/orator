@@ -2,7 +2,7 @@
 
 import datetime
 import pendulum
-from flexmock import flexmock, flexmock_teardown
+from flexmock import flexmock
 from stoobly_orator import Model, SoftDeletes
 from stoobly_orator.orm import Builder
 from stoobly_orator.query import QueryBuilder
@@ -14,7 +14,7 @@ t = pendulum.now()
 
 class SoftDeletesTestCase(OratorTestCase):
     def tearDown(self):
-        flexmock_teardown()
+        super().tearDown()
 
     def test_delete_sets_soft_deleted_column(self):
         model = flexmock(SoftDeleteModelStub())

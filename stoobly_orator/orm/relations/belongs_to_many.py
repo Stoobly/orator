@@ -649,7 +649,8 @@ class BelongsToMany(Relation):
         """
         Attach a model to the parent.
         """
-        if isinstance(id, orator.orm.Model):
+        from ..model import Model
+        if isinstance(id, Model):
             id = id.get_key()
 
         query = self.new_pivot_statement()
@@ -735,7 +736,8 @@ class BelongsToMany(Relation):
         """
         Detach models from the relationship.
         """
-        if isinstance(ids, orator.orm.model.Model):
+        from ..model import Model
+        if isinstance(ids, Model):
             ids = ids.get_key()
 
         if ids is None:

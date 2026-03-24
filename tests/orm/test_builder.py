@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from flexmock import flexmock, flexmock_teardown
+from flexmock import flexmock
 from .. import OratorTestCase, mock
 from ..utils import MockModel, MockQueryBuilder, MockConnection, MockProcessor
 from stoobly_orator.query.grammars.grammar import QueryGrammar
@@ -16,7 +16,7 @@ from stoobly_orator.query.processors import QueryProcessor
 
 class BuilderTestCase(OratorTestCase):
     def tearDown(self):
-        flexmock_teardown()
+        super().tearDown()
 
     def test_find_method(self):
         builder = Builder(self.get_mock_query_builder())

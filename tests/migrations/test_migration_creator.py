@@ -2,7 +2,7 @@
 
 import tempfile
 import os
-from flexmock import flexmock, flexmock_teardown
+from flexmock import flexmock
 from stoobly_orator.migrations import MigrationCreator
 from stoobly_orator.migrations.stubs import CREATE_STUB, UPDATE_STUB, BLANK_STUB
 from .. import OratorTestCase
@@ -10,7 +10,7 @@ from .. import OratorTestCase
 
 class MigrationCreatorTestCase(OratorTestCase):
     def tearDown(self):
-        flexmock_teardown()
+        super().tearDown()
 
     def test_basic_create_method_stores_migration_file(self):
         expected = os.path.join(tempfile.gettempdir(), "foo_create_bar.py")
