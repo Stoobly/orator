@@ -13,8 +13,6 @@ class Command(BaseCommand):
 
     def __init__(self, resolver=None):
         self.resolver = resolver
-        self.input = None
-        self.output = None
 
         super(Command, self).__init__()
 

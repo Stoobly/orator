@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import importlib
 import inflection
 import os
 from cleo.io.inputs.option import Option

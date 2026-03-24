@@ -50,8 +50,9 @@ class MigrateCommand(BaseCommand):
             if database:
                 args += f" --database {database}"
 
-            if self.definition.has_option("config"):
-                args += f" --config {self.option('config')}"
+            config = self.option("config") if self.definition.has_option("config") else None
+            if config:
+                args += f" --config {config}"
 
             if self.option("seed-path"):
                 args += f" --path {self.option('seed-path')}"
@@ -67,7 +68,8 @@ class MigrateCommand(BaseCommand):
             if database:
                 args += f"--database {database}"
 
-            if self.definition.has_option("config"):
-                args += f" --config {self.option('config')}"
+            config = self.option("config") if self.definition.has_option("config") else None
+            if config:
+                args += f" --config {config}"
 
             self.call("migrate:install", args.strip())

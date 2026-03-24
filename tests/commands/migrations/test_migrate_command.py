@@ -42,7 +42,7 @@ class MigrateCommandTestCase(OratorCommandTestCase):
         command = flexmock(MigrateCommand())
         command.should_receive("_get_config").and_return({})
         command.should_receive("confirm").and_return(True)
-        command.should_receive("call").once().with_args("migrate:install", str)
+        command.should_receive("call").once().with_args("migrate:install", "")
 
         self.run_command(command)
 
@@ -79,7 +79,7 @@ class MigrateCommandTestCase(OratorCommandTestCase):
         command = flexmock(MigrateCommand())
         command.should_receive("_get_config").and_return({})
         command.should_receive("confirm").and_return(True)
-        command.should_receive("call").once().with_args("migrate:install", str)
+        command.should_receive("call").once().with_args("migrate:install", "--database foo")
 
         self.run_command(command, "--database foo")
 
