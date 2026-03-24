@@ -4,7 +4,6 @@ from flexmock import flexmock
 from stoobly_orator import DatabaseManager
 from stoobly_orator.connections import Connection
 from stoobly_orator.seeds import Seeder
-from cleo.io.outputs.output import Output
 from cleo.commands.command import Command as BaseCommand
 
 from .. import OratorTestCase
