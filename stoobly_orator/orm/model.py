@@ -2493,7 +2493,7 @@ class Model(object):
         """
         value = getattr(self, key)
 
-        if hasattr(value, "serialize"):
+        if isinstance(value, (Model, Collection)):
             return value.serialize()
 
         if hasattr(value, "to_dict"):
@@ -2618,6 +2618,12 @@ class Model(object):
             return value.strftime(date_format)
 
         if value.tzinfo is None:
+            warn(
+                "Naive datetime passed to ORM; assuming UTC. "
+                "Use timezone-aware datetimes to avoid this warning.",
+                UserWarning,
+                stacklevel=3,
+            )
             value = value.replace(tzinfo=datetime.timezone.utc)
         return pendulum.instance(value).strftime(date_format)
 
@@ -2639,6 +2645,12 @@ class Model(object):
             return pendulum.instance(datetime.datetime.combine(value, datetime.time()))
 
         if value.tzinfo is None:
+            warn(
+                "Naive datetime passed to ORM; assuming UTC. "
+                "Use timezone-aware datetimes to avoid this warning.",
+                UserWarning,
+                stacklevel=3,
+            )
             value = value.replace(tzinfo=datetime.timezone.utc)
         return pendulum.instance(value)
 
