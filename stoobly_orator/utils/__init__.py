@@ -3,53 +3,22 @@
 import sys
 import warnings
 import functools
+import importlib.util
 
-PY2 = sys.version_info[0] == 2
-PY3K = sys.version_info[0] >= 3
-PY33 = sys.version_info >= (3, 3)
+long = int
+unicode = str
+basestring = str
 
-if PY2:
-    import imp
+reduce = functools.reduce
 
-    long = long
-    unicode = unicode
-    basestring = basestring
-
-    reduce = reduce
-
-    from urllib import quote_plus, unquote_plus, quote, unquote
-    from urlparse import parse_qsl
-
-    def load_module(module, path):
-        with open(path, "rb") as fh:
-            mod = imp.load_source(module, path, fh)
-
-            return mod
+from urllib.parse import quote_plus, unquote_plus, parse_qsl, quote, unquote
 
 
-else:
-    long = int
-    unicode = str
-    basestring = str
-
-    from functools import reduce
-
-    from urllib.parse import quote_plus, unquote_plus, parse_qsl, quote, unquote
-
-    if PY33:
-        from importlib import machinery
-
-        def load_module(module, path):
-            return machinery.SourceFileLoader(module, path).load_module(module)
-
-    else:
-        import imp
-
-        def load_module(module, path):
-            with open(path, "rb") as fh:
-                mod = imp.load_source(module, path, fh)
-
-                return mod
+def load_module(module, path):
+    spec = importlib.util.spec_from_file_location(module, path)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
 
 
 from .helpers import mkdir_p, value
@@ -70,10 +39,7 @@ def deprecated(func):
 
     @functools.wraps(func)
     def new_func(*args, **kwargs):
-        if PY3K:
-            func_code = func.__code__
-        else:
-            func_code = func.func_code
+        func_code = func.__code__
 
         warnings.warn_explicit(
             "Call to deprecated function {}.".format(func.__name__),
@@ -88,10 +54,7 @@ def deprecated(func):
 
 
 def decode(string, encodings=None):
-    if not PY2 and not isinstance(string, bytes):
-        return string
-
-    if PY2 and isinstance(string, unicode):
+    if not isinstance(string, bytes):
         return string
 
     if encodings is None:
@@ -107,10 +70,7 @@ def decode(string, encodings=None):
 
 
 def encode(string, encodings=None):
-    if not PY2 and isinstance(string, bytes):
-        return string
-
-    if PY2 and isinstance(string, str):
+    if isinstance(string, bytes):
         return string
 
     if encodings is None:

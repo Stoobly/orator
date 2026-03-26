@@ -17,7 +17,7 @@ be used directly and is also accepted directly by ``create_engine()``.
 """
 
 import re
-from . import parse_qsl, unquote_plus, unquote, basestring, PY2
+from . import parse_qsl, unquote_plus, unquote, basestring
 from ..exceptions import ArgumentError
 
 
@@ -209,8 +209,6 @@ def _parse_rfc1738_args(name):
             tokens = components["database"].split("?", 2)
             components["database"] = tokens[0]
             query = (len(tokens) > 1 and dict(parse_qsl(tokens[1]))) or None
-            if PY2 and query is not None:
-                query = dict((k.encode("ascii"), query[k]) for k in query)
         else:
             query = None
         components["query"] = query

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import re
-from pendulum import Pendulum, Date
+from pendulum import DateTime as Pendulum, Date
 
 try:
     import MySQLdb as mysql
@@ -116,7 +116,7 @@ class MySQLConnector(Connector):
         version = self._connection.get_server_info()
 
         version_parts = re.match(
-            "^(?P<major>\d+)(?:\.(?P<minor>\d+)(?:\.(?P<patch>\d+))?)?", version
+            r"^(?P<major>\d+)(?:\.(?P<minor>\d+)(?:\.(?P<patch>\d+))?)?", version
         )
 
         major = int(version_parts.group("major"))

@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from ..utils import decode
-from ..utils import PY2
 from .connection import Connection
 from ..query.grammars.mysql_grammar import MySQLQueryGrammar
 from ..query.processors.mysql_processor import MySQLQueryProcessor
@@ -70,8 +68,5 @@ class MySQLConnection(Connection):
     def _get_cursor_query(self, query, bindings):
         if not hasattr(self._cursor, "_last_executed") or self._pretending:
             return super(MySQLConnection, self)._get_cursor_query(query, bindings)
-
-        if PY2:
-            return decode(self._cursor._last_executed)
 
         return self._cursor._last_executed

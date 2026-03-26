@@ -201,6 +201,21 @@ class QueryBuilderTestCase(OratorTestCase):
         self.assertEqual('SELECT * FROM "users" WHERE id = ?', builder.to_sql())
         self.assertEqual([1], builder.get_bindings())
 
+    def test_raw_wheres_mixed_case_boolean(self):
+        # Regression: re.I was previously passed as `count` instead of `flags`,
+        # so mixed-case AND/OR in raw WHERE clauses were not uppercased.
+        builder = self.get_builder()
+        builder.select("*").from_("users").where_raw("id = ? OR email = ?", [1, "foo"])
+        self.assertEqual(
+            'SELECT * FROM "users" WHERE id = ? OR email = ?', builder.to_sql()
+        )
+
+        builder = self.get_builder()
+        builder.select("*").from_("users").where_raw("id = ? And email = ?", [1, "foo"])
+        self.assertEqual(
+            'SELECT * FROM "users" WHERE id = ? AND email = ?', builder.to_sql()
+        )
+
     def test_raw_or_wheres(self):
         builder = self.get_builder()
         builder.select("*").from_("users").where("id", "=", 1).or_where_raw(
@@ -480,6 +495,21 @@ class QueryBuilderTestCase(OratorTestCase):
         )
         self.assertEqual(
             'SELECT * FROM "users" ORDER BY "email" ASC, "age" ? DESC', builder.to_sql()
+        )
+
+    def test_order_by_raw_mixed_case(self):
+        # Regression: re.I was previously passed as `count` instead of `flags`,
+        # so mixed-case DESC/ASC in raw ORDER BY expressions were not uppercased.
+        builder = self.get_builder()
+        builder.select("*").from_("users").order_by_raw('"age" Desc')
+        self.assertEqual(
+            'SELECT * FROM "users" ORDER BY "age" DESC', builder.to_sql()
+        )
+
+        builder = self.get_builder()
+        builder.select("*").from_("users").order_by_raw('"age" ASC')
+        self.assertEqual(
+            'SELECT * FROM "users" ORDER BY "age" ASC', builder.to_sql()
         )
 
     def test_havings(self):

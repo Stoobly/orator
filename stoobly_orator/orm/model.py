@@ -1879,7 +1879,7 @@ class Model(object):
 
         :return: pendulum.Pendulum
         """
-        return pendulum.utcnow()
+        return pendulum.now('UTC')
 
     def fresh_timestamp_string(self):
         """
@@ -2271,7 +2271,7 @@ class Model(object):
         :return: The JSON encoded model instance
         :rtype: str
         """
-        return json.dumps(self.to_dict(), **options)
+        return json.dumps(self.serialize(), **options)
 
     def serialize(self):
         """
@@ -2493,6 +2493,9 @@ class Model(object):
         """
         value = getattr(self, key)
 
+        if isinstance(value, (Model, Collection)):
+            return value.serialize()
+
         if hasattr(value, "to_dict"):
             return value.to_dict()
 
@@ -2604,17 +2607,25 @@ class Model(object):
         """
         date_format = self.get_connection().get_query_grammar().get_date_format()
 
-        if isinstance(value, pendulum.Pendulum):
-            return value.format(date_format)
+        if isinstance(value, pendulum.DateTime):
+            return value.strftime(date_format)
 
         if isinstance(value, datetime.date) and not isinstance(
             value, (datetime.datetime)
         ):
-            value = pendulum.date.instance(value)
+            value = pendulum.instance(datetime.datetime.combine(value, datetime.time()))
 
-            return value.format(date_format)
+            return value.strftime(date_format)
 
-        return pendulum.instance(value).format(date_format)
+        if value.tzinfo is None:
+            warn(
+                "Naive datetime passed to ORM; assuming UTC. "
+                "Use timezone-aware datetimes to avoid this warning.",
+                UserWarning,
+                stacklevel=3,
+            )
+            value = value.replace(tzinfo=datetime.timezone.utc)
+        return pendulum.instance(value).strftime(date_format)
 
     def as_datetime(self, value):
         """
@@ -2631,8 +2642,16 @@ class Model(object):
         if isinstance(value, datetime.date) and not isinstance(
             value, (datetime.datetime)
         ):
-            return pendulum.date.instance(value)
+            return pendulum.instance(datetime.datetime.combine(value, datetime.time()))
 
+        if value.tzinfo is None:
+            warn(
+                "Naive datetime passed to ORM; assuming UTC. "
+                "Use timezone-aware datetimes to avoid this warning.",
+                UserWarning,
+                stacklevel=3,
+            )
+            value = value.replace(tzinfo=datetime.timezone.utc)
         return pendulum.instance(value)
 
     def get_date_format(self):
@@ -2664,7 +2683,7 @@ class Model(object):
             return date.isoformat()
         else:
             if isinstance(date, basestring):
-                return pendulum.parse(date).format(format)
+                return pendulum.parse(date).strftime(format)
 
             return date.strftime(format)
 
