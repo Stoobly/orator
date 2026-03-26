@@ -2645,12 +2645,6 @@ class Model(object):
             return pendulum.instance(datetime.datetime.combine(value, datetime.time()))
 
         if value.tzinfo is None:
-            warn(
-                "Naive datetime passed to ORM; assuming UTC. "
-                "Use timezone-aware datetimes to avoid this warning.",
-                UserWarning,
-                stacklevel=3,
-            )
             value = value.replace(tzinfo=datetime.timezone.utc)
         return pendulum.instance(value)
 

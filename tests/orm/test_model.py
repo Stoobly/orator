@@ -365,8 +365,8 @@ class OrmModelTestCase(OratorTestCase):
         model.unguard()
 
         timestamps = {
-            "created_at": datetime.datetime.now(),
-            "updated_at": datetime.datetime.now(),
+            "created_at": datetime.datetime.now(datetime.timezone.utc),
+            "updated_at": datetime.datetime.now(datetime.timezone.utc),
         }
 
         instance = model.new_instance(timestamps)
@@ -381,8 +381,8 @@ class OrmModelTestCase(OratorTestCase):
         model.unguard()
 
         timestamps = {
-            "created_at": datetime.datetime.now(),
-            "updated_at": datetime.datetime.now(),
+            "created_at": datetime.datetime.now(datetime.timezone.utc),
+            "updated_at": datetime.datetime.now(datetime.timezone.utc),
         }
 
         instance = model.new_instance(timestamps)

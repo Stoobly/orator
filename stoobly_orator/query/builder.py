@@ -670,7 +670,7 @@ class QueryBuilder(object):
         finder = method[6:]
 
         def dynamic_where(*parameters):
-            segments = re.split("_(and|or)_(?=[a-z])", finder, 0, re.I)
+            segments = re.split("_(and|or)_(?=[a-z])", finder, flags=re.I)
 
             connector = "and"
 

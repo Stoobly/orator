@@ -1653,8 +1653,8 @@ class QueryBuilderTestCase(OratorTestCase):
         results = [{"foo": "bar"}, {"foo": "baz"}, {"foo": "bam"}, {"foo": "boom"}]
 
         def select(query, bindings, _):
-            index = int(re.search("OFFSET (\d+)", query).group(1))
-            limit = int(re.search("LIMIT (\d+)", query).group(1))
+            index = int(re.search(r"OFFSET (\d+)", query).group(1))
+            limit = int(re.search(r"LIMIT (\d+)", query).group(1))
 
             if index >= len(results):
                 return []
