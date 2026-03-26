@@ -6,7 +6,7 @@ import logging
 import pendulum
 import simplejson as json
 
-from datetime import datetime, timedelta, date
+from datetime import datetime, timedelta, date, timezone
 from backpack import collect
 from stoobly_orator import Model, Collection, DatabaseManager
 from stoobly_orator.orm import (
@@ -272,7 +272,7 @@ class IntegrationTestCase(object):
         self.assertEqual("First Post", photos[3].imageable.name)
 
     def test_multi_insert_with_different_values(self):
-        date = pendulum.utcnow()._datetime
+        date = pendulum.now('UTC')
         user1 = OratorTestUser.create(email="john@doe.com")
         user2 = OratorTestUser.create(email="jane@doe.com")
         result = OratorTestPost.insert(
@@ -296,7 +296,7 @@ class IntegrationTestCase(object):
         self.assertEqual(2, OratorTestPost.count())
 
     def test_multi_insert_with_same_values(self):
-        date = pendulum.utcnow()._datetime
+        date = pendulum.now('UTC')
         user1 = OratorTestUser.create(email="john@doe.com")
         result = OratorTestPost.insert(
             [
@@ -334,7 +334,7 @@ class IntegrationTestCase(object):
 
         self.assertEqual(3, related_friend.id)
         self.assertEqual("another@doe.com", related_friend.email)
-        self.assertIn("pivot", related_friend.to_dict())
+        self.assertIn("pivot", related_friend.serialize())
         self.assertEqual(1, related_friend.pivot.user_id)
         self.assertEqual(3, related_friend.pivot.friend_id)
         self.assertTrue(hasattr(related_friend.pivot, "is_close"))
@@ -448,7 +448,7 @@ class IntegrationTestCase(object):
         self.assertEqual("bar", photo.metadata["foo"])
 
     def test_local_scopes(self):
-        yesterday = datetime.utcnow() - timedelta(days=1)
+        yesterday = datetime.now(timezone.utc) - timedelta(days=1)
         john = OratorTestUser.create(
             id=1, email="john@doe.com", created_at=yesterday, updated_at=yesterday
         )
@@ -583,7 +583,7 @@ class IntegrationTestCase(object):
 
     def test_date(self):
         user = OratorTestUser.create(id=1, email="john@doe.com")
-        photo1 = user.photos().create(name="Photo 1", taken_on=pendulum.date.today())
+        photo1 = user.photos().create(name="Photo 1", taken_on=pendulum.today())
         photo2 = user.photos().create(name="Photo 2")
 
         self.assertIsInstance(OratorTestPhoto.find(photo1.id).taken_on, date)
@@ -624,7 +624,7 @@ class IntegrationTestCase(object):
         self.assertEqual(count, 20)
 
     def test_timestamp_with_timezone(self):
-        now = pendulum.utcnow()
+        now = pendulum.now('UTC')
         user = OratorTestUser.create(email="john@doe.com", created_at=now)
         fresh_user = OratorTestUser.find(user.id)
 
@@ -762,7 +762,7 @@ class OratorTestUser(Model):
 
     @scope
     def older_than(self, query, **kwargs):
-        query.where("updated_at", "<", pendulum.utcnow().subtract(**kwargs))
+        query.where("updated_at", "<", pendulum.now('UTC').subtract(**kwargs))
 
 
 class OratorTestPost(Model):
@@ -818,4 +818,4 @@ class OratorTestPhoto(Model):
 
     @accessor
     def created_at(self):
-        return pendulum.instance(self._attributes["created_at"]).in_tz("Europe/Paris")
+        return pendulum.instance(self._attributes["created_at"]).in_timezone("Europe/Paris")

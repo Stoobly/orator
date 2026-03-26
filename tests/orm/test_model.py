@@ -4,7 +4,7 @@ import simplejson as json
 import hashlib
 import time
 import datetime
-from pendulum import Pendulum
+from pendulum import DateTime as Pendulum
 from flexmock import flexmock
 from .. import OratorTestCase, mock
 from ..utils import MockModel, MockQueryBuilder, MockConnection, MockProcessor
@@ -354,7 +354,7 @@ class OrmModelTestCase(OratorTestCase):
     def test_timestamps_are_returned_as_objects_from_timestamps_and_datetime(self):
         model = Model()
         model.set_raw_attributes(
-            {"created_at": datetime.datetime.utcnow(), "updated_at": time.time()}
+            {"created_at": datetime.datetime.now(datetime.timezone.utc), "updated_at": time.time()}
         )
 
         self.assertIsInstance(model.created_at, Pendulum)
@@ -720,7 +720,7 @@ class OrmModelTestCase(OratorTestCase):
         self.assertNotIn("password", d)
 
         model.set_appends(["appendable"])
-        d = model.to_dict()
+        d = model.serialize()
         self.assertEqual("appended", d["appendable"])
 
     def test_to_dict_includes_default_formatted_timestamps(self):
@@ -729,7 +729,7 @@ class OrmModelTestCase(OratorTestCase):
             {"created_at": "2015-03-24", "updated_at": "2015-03-25"}
         )
 
-        d = model.to_dict()
+        d = model.serialize()
 
         self.assertEqual("2015-03-24T00:00:00+00:00", d["created_at"])
         self.assertEqual("2015-03-25T00:00:00+00:00", d["updated_at"])
@@ -748,7 +748,7 @@ class OrmModelTestCase(OratorTestCase):
             {"created_at": "2015-03-24", "updated_at": "2015-03-25"}
         )
 
-        d = model.to_dict()
+        d = model.serialize()
 
         self.assertEqual("24-03-15", d["created_at"])
         self.assertEqual("25-03-15", d["updated_at"])
@@ -758,7 +758,7 @@ class OrmModelTestCase(OratorTestCase):
         model.set_visible(["name"])
         model.name = "John"
         model.age = 28
-        d = model.to_dict()
+        d = model.serialize()
 
         self.assertEqual({"name": "John"}, d)
 
@@ -767,19 +767,19 @@ class OrmModelTestCase(OratorTestCase):
         model.name = "John"
         model.set_relation("foo", ["bar"])
         model.set_hidden(["foo", "list_items", "password"])
-        d = model.to_dict()
+        d = model.serialize()
 
         self.assertEqual({"name": "John"}, d)
 
     def test_to_dict_uses_mutators(self):
         model = OrmModelStub()
         model.list_items = [1, 2, 3]
-        d = model.to_dict()
+        d = model.serialize()
 
         self.assertEqual([1, 2, 3], d["list_items"])
 
         model = OrmModelStub(list_items=[1, 2, 3])
-        d = model.to_dict()
+        d = model.serialize()
 
         self.assertEqual([1, 2, 3], d["list_items"])
 
@@ -787,7 +787,7 @@ class OrmModelTestCase(OratorTestCase):
         model = OrmModelStub(name="john", age=28, id="foo")
         model.set_visible(["name", "id"])
         model.set_hidden(["name", "age"])
-        d = model.to_dict()
+        d = model.serialize()
 
         self.assertIn("name", d)
         self.assertIn("id", d)
@@ -978,7 +978,7 @@ class OrmModelTestCase(OratorTestCase):
         self.assertEqual({"foo": "bar"}, model.eighth)
         self.assertEqual(["foo", "bar"], model.seventh)
 
-        d = model.to_dict()
+        d = model.serialize()
 
         self.assertIsInstance(d["first"], int)
         self.assertIsInstance(d["second"], float)
@@ -1014,7 +1014,7 @@ class OrmModelTestCase(OratorTestCase):
         self.assertIsNone(model.seventh)
         self.assertIsNone(model.eighth)
 
-        d = model.to_dict()
+        d = model.serialize()
 
         self.assertIsNone(d["first"])
         self.assertIsNone(d["second"])

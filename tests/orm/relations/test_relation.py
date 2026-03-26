@@ -20,7 +20,7 @@ class OrmRelationTestCase(OratorTestCase):
         relation = OrmRelationResetModelStub()
         parent.set_relation("test", relation)
         parent.set_relation("foo", "bar")
-        self.assertFalse("foo" in parent.to_dict())
+        self.assertFalse("foo" in parent.serialize())
 
     def test_touch_method_updates_related_timestamps(self):
         builder = flexmock(Builder, get_model=None, where=None)

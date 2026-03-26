@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import division
-
 import math
 from .base import BasePaginator
 from ..support.collection import Collection

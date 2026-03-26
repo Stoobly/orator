@@ -11,7 +11,7 @@ from .platforms.mysql_platform import MySQLPlatform
 class MySQLSchemaManager(SchemaManager):
     def _get_portable_table_column_definition(self, table_column):
         db_type = table_column["type"].lower()
-        type_match = re.match("(.+)\((.*)\).*", db_type)
+        type_match = re.match(r"(.+)\((.*)\).*", db_type)
         if type_match:
             db_type = type_match.group(1)
         # MySQL 8 omits the display width and returns e.g. "int unsigned" instead of "int(11)".
@@ -40,7 +40,7 @@ class MySQLSchemaManager(SchemaManager):
         if db_type in ["char", "binary"]:
             fixed = True
         elif db_type in ["float", "double", "real", "decimal", "numeric"]:
-            match = re.match("([A-Za-z]+\(([0-9]+),([0-9]+)\))", table_column["type"])
+            match = re.match(r"([A-Za-z]+\(([0-9]+),([0-9]+)\))", table_column["type"])
             if match:
                 precision = match.group(1)
                 scale = match.group(2)

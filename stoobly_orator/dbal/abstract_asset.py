@@ -60,7 +60,7 @@ class AbstractAsset(object):
         )
 
     def _trim_quotes(self, identifier):
-        return re.sub('[`"\[\]]', "", identifier)
+        return re.sub(r'[`"\[\]]', "", identifier)
 
     def get_name(self):
         if self._namespace:

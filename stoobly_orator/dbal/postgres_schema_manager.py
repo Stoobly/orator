@@ -12,11 +12,11 @@ class PostgresSchemaManager(SchemaManager):
             table_column["type"].lower() == "varchar"
             or table_column["type"] == "bpchar"
         ):
-            length = re.sub(".*\(([0-9]*)\).*", "\\1", table_column["complete_type"])
+            length = re.sub(r".*\(([0-9]*)\).*", "\\1", table_column["complete_type"])
             table_column["length"] = length
 
         autoincrement = False
-        match = re.match("^nextval\('?(.*)'?(::.*)?\)$", str(table_column["default"]))
+        match = re.match(r"^nextval\('?(.*)'?(::.*)?\)$", str(table_column["default"]))
         if match:
             table_column["sequence"] = match.group(1)
             table_column["default"] = None
@@ -84,7 +84,7 @@ class PostgresSchemaManager(SchemaManager):
             "numeric",
         ]:
             match = re.match(
-                "([A-Za-z]+\(([0-9]+),([0-9]+)\))", table_column["complete_type"]
+                r"([A-Za-z]+\(([0-9]+),([0-9]+)\))", table_column["complete_type"]
             )
             if match:
                 precision = match.group(1)
@@ -165,7 +165,7 @@ class PostgresSchemaManager(SchemaManager):
             on_delete = match.group(1)
 
         values = re.match(
-            "FOREIGN KEY \((.+)\) REFERENCES (.+)\((.+)\)", table_foreign_key["condef"]
+            r"FOREIGN KEY \((.+)\) REFERENCES (.+)\((.+)\)", table_foreign_key["condef"]
         )
         if values:
             local_columns = [c.strip() for c in values.group(1).split(",")]

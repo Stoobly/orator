@@ -143,7 +143,7 @@ class QueryGrammar(Grammar):
         if len(sql) > 0:
             sql = " ".join(sql)
 
-            return "WHERE %s" % re.sub("AND |OR ", "", sql, 1, re.I)
+            return "WHERE %s" % re.sub("AND |OR ", "", sql, count=1, flags=re.I)
 
         return ""
 
@@ -236,7 +236,7 @@ class QueryGrammar(Grammar):
         )
 
     def _where_raw(self, query, where):
-        return re.sub("( and | or )", lambda m: m.group(1).upper(), where["sql"], re.I)
+        return re.sub("( and | or )", lambda m: m.group(1).upper(), where["sql"], flags=re.I)
 
     def _compile_groups(self, query, groups):
         if not groups:
@@ -250,7 +250,7 @@ class QueryGrammar(Grammar):
 
         sql = " ".join(map(self._compile_having, havings))
 
-        return "HAVING %s" % re.sub("and |or ", "", sql, 1, re.I)
+        return "HAVING %s" % re.sub("and |or ", "", sql, count=1, flags=re.I)
 
     def _compile_having(self, having):
         # If the having clause is "raw", we can just return the clause straight away
@@ -285,7 +285,7 @@ class QueryGrammar(Grammar):
                         "( desc| asc)( |$)",
                         lambda m: "%s%s" % (m.group(1).upper(), m.group(2)),
                         order["sql"],
-                        re.I,
+                        flags=re.I,
                     )
                 )
             else:
@@ -421,4 +421,4 @@ class QueryGrammar(Grammar):
         return " ".join(parts)
 
     def _remove_leading_boolean(self, value):
-        return re.sub("and | or ", "", value, 1, re.I)
+        return re.sub("and | or ", "", value, count=1, flags=re.I)
